@@ -2,6 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 
+
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 // The file token.json stores the user's access and refresh tokens, and is
@@ -9,42 +10,18 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 // time.
 const TOKEN_PATH = 'token.json';
 
-var eventGlobal = {
-    'summary': 'Google I/O 2015',
-    'location': '800 Howard St., San Francisco, CA 94103',
-    'description': 'A chance to hear more about Google\'s developer products.',
-    'start': {
-      'dateTime': '2022-01-14T20:00:00.000Z',
-      'timeZone': 'America/Los_Angeles'
-    },
-    'end': {
-      'dateTime': '2022-01-14T22:00:00.000Z',
-      'timeZone': 'America/Los_Angeles'
-    },
-    // 'recurrence': [
-    //   'RRULE:FREQ=DAILY;COUNT=2'
-    // ],
-    // 'attendees': [
-    //   {'email': 'seanmairs@berkeley.edu'},
-    // ],
-    'reminders': {
-      'useDefault': false,
-      'overrides': [
-        {'method': 'email', 'minutes': 24 * 60},
-        {'method': 'popup', 'minutes': 10}
-      ]
-    }
-  };
+function createEvent(event) {
+  // Load client secrets from a local file.
+  fs.readFile('../credentials.json', (err, content) => {
+  if (err) return console.log('Error loading client secret file:', err);
+  // Authorize a client with credentials.
+  // We want to generate an event under eventGlobal, maybe this could be passed in the body
+  // of a request in our rest api
+      
+  authorize(JSON.parse(content), event, addEvent);
+  });
+}
 
-// Load client secrets from a local file.
-fs.readFile('../credentials.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-    // Authorize a client with credentials.
-    // We want to generate an event under eventGlobal, maybe this could be passed in the body
-    // of a request in our rest api
-        
-    authorize(JSON.parse(content), eventGlobal, listEvents);
-});
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -61,7 +38,7 @@ function authorize(credentials, event, callback) {
   fs.readFile(TOKEN_PATH, (err, token) => {
     if (err) return getAccessToken(oAuth2Client, callback);
     oAuth2Client.setCredentials(JSON.parse(token));
-    // calls listEvents on passed in event and oAuth2Client
+    // calls addEvent on passed in event and oAuth2Client
     callback(event, oAuth2Client);
   });
 }
@@ -101,9 +78,9 @@ function getAccessToken(oAuth2Client, callback) {
  * Lists the next 10 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listEvents(event, auth) {
+function addEvent(event, auth) {
   const calendar = google.calendar({version: 'v3', auth});
-  console.log(calendar.events);
+  // console.log(calendar.events);
   
 //   calendar.events.list({
 //     calendarId: 'primary',
@@ -136,3 +113,5 @@ function listEvents(event, auth) {
     console.log('Event created: %s', event.data.htmlLink);
   });
 }
+
+module.exports = createEvent;

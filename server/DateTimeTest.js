@@ -12,7 +12,7 @@
 // new Date(year, monthIndex, day, hours, minutes, seconds)
 // new Date(year, monthIndex, day, hours, minutes, seconds, milliseconds)
 
-//'2013-02-14T13:15:03-08:00' (YYYY-MM-DDTHH:mm:ssZ).
+//"2013-02-14T13:15:03-08:00" (YYYY-MM-DDTHH:mm:ssZ).
 
 
 var d = new Date(2022, 0, 14, 12);

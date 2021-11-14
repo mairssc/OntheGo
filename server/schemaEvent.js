@@ -3,7 +3,6 @@ const url = 'mongodb://127.0.0.1:27017/node-mongo-hw' // change this as needed
 
 const Schema = mongoose.Schema;
 
-
 const eventSchema = new Schema({
     summary: {
         type: String,
@@ -32,7 +31,6 @@ const eventSchema = new Schema({
             type: String,
             required: true
         },
-        required: false
     },
     recurrence: {
         type: Array,
@@ -55,4 +53,4 @@ const eventSchema = new Schema({
 })
 
 
-module.exports = mongoose.model('Event', eventSchema);
+module.exports = mongoose.model('event', eventSchema);
