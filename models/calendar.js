@@ -3,7 +3,7 @@ const url = 'mongodb://127.0.0.1:27017/node-mongo-hw' // change this as needed
 
 const Schema = mongoose.Schema;
 
-const eventSchema = new Schema({
+const calendarSchema = new Schema({
     summary: {
         type: String,
         required: false
@@ -52,5 +52,4 @@ const eventSchema = new Schema({
     }
 })
 
-
-module.exports = mongoose.model('event', eventSchema);
+module.exports = mongoose.model('calendar', calendarSchema);
