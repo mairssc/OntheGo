@@ -56,8 +56,15 @@ router.post('/add', async (req, res) => {
 router.get('/get/:id', async (req, res) => {
     try {
         let curCalendar = await calendar.findById(req.params.id);
-        delete curCalendar['_id']
-        delete curCalendar['__v']
+        curCalendar = {
+            summary: curCalendar.summary,
+            location: curCalendar.summary,
+            start: curCalendar.start,
+            end: curCalendar.end,
+            recurrence: curCalendar.recurrence,
+            attendees: curCalendar.attendees,
+            reminders: curCalendar.reminders
+        }
         console.log(curCalendar)
         //Uses googleCalendar.js to create calendar event and ask for authentication
         createCalendarEvent(curCalendar);
@@ -66,5 +73,10 @@ router.get('/get/:id', async (req, res) => {
         res.send(err.message)
     }
 })
+
+//Start this later, front end needs this
+// router.get('/getAuthUrl' , async (req, res) => {
+    
+// })
 
 module.exports = router;
