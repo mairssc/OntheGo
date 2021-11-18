@@ -10,7 +10,7 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 // time.
 const TOKEN_PATH = 'token.json';
 
-function createEvent(event) {
+function createCalendarEvent(event) {
   // Load client secrets from a local file.
   fs.readFile('../credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
@@ -114,4 +114,4 @@ function addEvent(event, auth) {
   });
 }
 
-module.exports = createEvent;
+module.exports = createCalendarEvent;

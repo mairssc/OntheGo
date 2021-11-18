@@ -3,7 +3,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const event = require('./schemaEvent.js');
+const calendar = require('../models/calendar.js');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,8 +32,8 @@ db.on('error', (error) => {
 app.use(express.static('../client'))
 
 //routes
-const eventRoute = require('../route/eventRouter.js')
-app.use('/event', eventRoute);
+const calendarRoute = require('../route/calendar.js')
+app.use('/calendar', calendarRoute);
 
 
 app.listen(port);
