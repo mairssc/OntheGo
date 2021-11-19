@@ -1,12 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const {createCalendarEvent, getAuthUrl} = require("../server/googleCalendar.js")
+const {createCalendarEvent, getAuthUrl} = require("../server/googleCalendar.js");
+const {google} = require('googleapis');
 // const { check, validationResult} = require("express-validator");
 // const bcrypt = require("bcryptjs");
 // const jwt = require("jsonwebtoken");
 // const auth = require("../middleware/auth");
 
-
+const clientId = '380499278699-v9v2r3pj2jf56qchhjobrdpgv1ks5ua9.apps.googleusercontent.com';
+const clientSecret = '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';
+//RedirectUri sends after authenticated
+//This should redirect after user authenticates
+const redirectUris = ["urn:ietf:wg:oauth:2.0:oob","http://localhost:8080"];
+const oAuth2Client = new google.auth.OAuth2(
+  clientId, clientSecret, redirectUris[1]);
 
 const calendar = require('../models/calendar.js');
 
@@ -53,7 +60,7 @@ router.post('/add', async (req, res) => {
     }
 })
 
-//put in query with code from website query, do not call if no code
+//give id for calendar and token json from /getToken
 router.get('/get/:id', async (req, res) => {
     try {
         let curCalendar = await calendar.findById(req.params.id);
@@ -62,8 +69,11 @@ router.get('/get/:id', async (req, res) => {
         //ADD AUTH HANDELING, should be required in order to do anything
         //currently code, would be better if we had token, or some way of storing token
         //code shou
-        let code = req.query.code
-        
+        let curoAuth2Client = oAuth2Client;
+        let token = req.body;
+        curoAuth2Client.setCredentials(token);
+        console.log(token);
+
 
         curCalendar = {
             summary: curCalendar.summary,
@@ -75,10 +85,10 @@ router.get('/get/:id', async (req, res) => {
             reminders: curCalendar.reminders
         }
         //Uses googleCalendar.js to create calendar event and ask for authentication
-        createCalendarEvent(curCalendar, code);
-        res.send(curCalendar)
+        createCalendarEvent(curCalendar, curoAuth2Client);
+        res.send(curCalendar);
     } catch(err) {
-        res.send(err.message)
+        res.send(err.message);
     }
 })
 
@@ -86,6 +96,21 @@ router.get('/get/:id', async (req, res) => {
 //this sends them back to home page with code, err, and scope in query
 router.get('/getAuthUrl' , async (req, res) => {
     res.send(getAuthUrl());
+})
+
+
+//Enter code, return token json file
+router.get('/getToken', async (req, res) => {
+    try {
+        let code = req.query.code;
+        let curoAuth2Client = oAuth2Client;
+        curoAuth2Client.getToken(code, (err, token) => {
+            if (err) return console.error('Error retrieving access token', err);
+            res.send(token);
+        });
+    } catch(err) {
+        res.send(err.message);
+    }  
 })
 
 module.exports = router;

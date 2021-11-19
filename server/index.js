@@ -32,9 +32,11 @@ db.on('error', (error) => {
 app.use(express.static('../client'))
 
 //routes
-const calendarRoute = require('../route/calendar.js')
+const calendarRoute = require('../route/calendar.js');
 app.use('/calendar', calendarRoute);
 
+const userTestRoute = require('../route/userTest.js');
+app.use('/userTest', userTestRoute);
 
 app.listen(port);
 console.log('Server listening on port ' + port);

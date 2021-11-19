@@ -17,6 +17,7 @@ const redirectUris = ["urn:ietf:wg:oauth:2.0:oob","http://localhost:8080"];
 const oAuth2Client = new google.auth.OAuth2(
   clientId, clientSecret, redirectUris[1]);
 
+
 //Sends user to authUrl
 function getAuthUrl() {
   console.log(redirectUris[1])
@@ -27,12 +28,12 @@ function getAuthUrl() {
     return authUrl
 }
 
-function createCalendarEvent(event, code) {
+function createCalendarEvent(event, auth) {
   // Load client secrets from a local file.
   // Authorize a client with credentials.
   // We want to generate an event under eventGlobal, maybe this could be passed in the body
   // of a request in our rest api  
-  authorize(event, code, addEvent);
+  authorize(event, auth, addEvent);
 }
 
 // function getToken(code) {
@@ -48,16 +49,17 @@ function createCalendarEvent(event, code) {
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.
  */
-function authorize(event, code, callback) {
-    code = String(code);
-    let curoAuth2Client = oAuth2Client;
-    curoAuth2Client.getToken(code, (err, token) => {
-      if (err) return console.error('Error retrieving access token', err);
-      curoAuth2Client.setCredentials(token);
-      // Store the token to disk for later program executions
-      //calls addEvent
-      callback(event, curoAuth2Client);
-    });
+function authorize(event, auth, callback) {
+    // code = String(code);
+    // let curoAuth2Client = oAuth2Client;
+    // curoAuth2Client.getToken(code, (err, token) => {
+    //   if (err) return console.error('Error retrieving access token', err);
+    //   curoAuth2Client.setCredentials(token);
+    //   // Store the token to disk for later program executions
+    //   //calls addEvent
+      
+    // });
+    callback(event, auth);
 }
 
 /**
@@ -94,9 +96,9 @@ function authorize(event, code, callback) {
 
 /**
  * Lists the next 10 events on the user's primary calendar.
- * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function addEvent(event, auth) {
+  console.log(auth)
   console.log('made it to addEvent')
   const calendar = google.calendar({version: 'v3', auth: auth});
     calendar.events.insert({    
