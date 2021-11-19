@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const createCalendarEvent = require("../server/googleCalendar.js")
+const {createCalendarEvent, getAuthUrl} = require("../server/googleCalendar.js")
 // const { check, validationResult} = require("express-validator");
 // const bcrypt = require("bcryptjs");
 // const jwt = require("jsonwebtoken");
@@ -53,9 +53,18 @@ router.post('/add', async (req, res) => {
     }
 })
 
+//put in query with code from website query, do not call if no code
 router.get('/get/:id', async (req, res) => {
     try {
         let curCalendar = await calendar.findById(req.params.id);
+        
+        
+        //ADD AUTH HANDELING, should be required in order to do anything
+        //currently code, would be better if we had token, or some way of storing token
+        //code shou
+        let code = req.query.code
+        
+
         curCalendar = {
             summary: curCalendar.summary,
             location: curCalendar.summary,
@@ -65,18 +74,18 @@ router.get('/get/:id', async (req, res) => {
             attendees: curCalendar.attendees,
             reminders: curCalendar.reminders
         }
-        console.log(curCalendar)
         //Uses googleCalendar.js to create calendar event and ask for authentication
-        createCalendarEvent(curCalendar);
-        res.json(curCalendar);
+        createCalendarEvent(curCalendar, code);
+        res.send(curCalendar)
     } catch(err) {
         res.send(err.message)
     }
 })
 
-//Start this later, front end needs this
-// router.get('/getAuthUrl' , async (req, res) => {
-    
-// })
+//call this when they want to make calendar event
+//this sends them back to home page with code, err, and scope in query
+router.get('/getAuthUrl' , async (req, res) => {
+    res.send(getAuthUrl());
+})
 
 module.exports = router;
