@@ -2,13 +2,14 @@ const express = require("express");
 const router = express.Router();
 const {createCalendarEvent, getAuthUrl} = require("../server/googleCalendar.js");
 const {google} = require('googleapis');
+const clientInfo = require('../clientInfo.json');
 // const { check, validationResult} = require("express-validator");
 // const bcrypt = require("bcryptjs");
 // const jwt = require("jsonwebtoken");
 // const auth = require("../middleware/auth");
 
-const clientId = '380499278699-v9v2r3pj2jf56qchhjobrdpgv1ks5ua9.apps.googleusercontent.com';
-const clientSecret = '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';
+const clientId = clientInfo.clientId;
+const clientSecret = clientInfo.clientSecret;
 //RedirectUri sends after authenticated
 //This should redirect after user authenticates
 const redirectUris = ["urn:ietf:wg:oauth:2.0:oob","http://localhost:8080"];

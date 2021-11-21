@@ -1,6 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const clientInfo = require('../clientInfo.json');
 
 
 // If modifying these scopes, delete token.json.
@@ -9,8 +10,8 @@ const SCOPES = ['https://www.googleapis.com/auth/calendar', 'https://www.googlea
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'token.json';
-const clientId = '380499278699-v9v2r3pj2jf56qchhjobrdpgv1ks5ua9.apps.googleusercontent.com';
-const clientSecret = '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';
+const clientId = clientInfo.clientId;
+const clientSecret = clientInfo.clientSecret;
 //RedirectUri sends after authenticated
 //This should redirect after user authenticates
 const redirectUris = ["urn:ietf:wg:oauth:2.0:oob","http://localhost:8080"];
