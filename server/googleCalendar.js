@@ -29,12 +29,26 @@ function getAuthUrl() {
     return authUrl
 }
 
-function createCalendarEvent(event, auth) {
-  // Load client secrets from a local file.
+function createCalendarEvent(event, auth, res) {
   // Authorize a client with credentials.
   // We want to generate an event under eventGlobal, maybe this could be passed in the body
   // of a request in our rest api  
-  authorize(event, auth, addEvent);
+  // console.log(auth)
+  console.log('made it to createCalendarEvent')
+  const calendar = google.calendar({version: 'v3', auth: auth});
+  calendar.events.insert({    
+    auth: auth,
+    calendarId: 'primary',
+    resource: event,
+  }, function(err, event) {
+    if (err) {
+      //error
+      console.log('There was an error contacting the Calendar service: ' + err);
+      return;
+    }
+    console.log(event.data.htmlLink)
+    res.send(event.data.htmlLink);
+  });
 }
 
 // function getToken(code) {
@@ -50,7 +64,7 @@ function createCalendarEvent(event, auth) {
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.
  */
-function authorize(event, auth, callback) {
+// function authorize(event, auth, callback) {
     // code = String(code);
     // let curoAuth2Client = oAuth2Client;
     // curoAuth2Client.getToken(code, (err, token) => {
@@ -60,8 +74,8 @@ function authorize(event, auth, callback) {
     //   //calls addEvent
       
     // });
-    callback(event, auth);
-}
+//     callback(event, auth);
+// }
 
 /**
  * Get and store new token after prompting for user authorization, and then
@@ -98,24 +112,9 @@ function authorize(event, auth, callback) {
 /**
  * Lists the next 10 events on the user's primary calendar.
  */
-function addEvent(event, auth) {
-  console.log(auth)
-  console.log('made it to addEvent')
-  const calendar = google.calendar({version: 'v3', auth: auth});
-    calendar.events.insert({    
-    auth: auth,
-    calendarId: 'primary',
-    resource: event,
-  }, function(err, event) {
-    if (err) {
-      //error
-      console.log('There was an error contacting the Calendar service: ' + err);
-      return;
-    }
-    console.log('Event created: %s', event.data.htmlLink);
-    return event.data.htmlLink
-  });
-}
+// function addEvent(event, auth) {
+  
+// }
 
 //Going to add more later
 module.exports = {createCalendarEvent, getAuthUrl};

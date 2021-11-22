@@ -73,7 +73,6 @@ router.get('/get/:id', async (req, res) => {
         let curoAuth2Client = oAuth2Client;
         let token = req.body;
         curoAuth2Client.setCredentials(token);
-        console.log(token);
 
 
         curCalendar = {
@@ -86,8 +85,8 @@ router.get('/get/:id', async (req, res) => {
             reminders: curCalendar.reminders
         }
         //Uses googleCalendar.js to create calendar event and ask for authentication
-        createCalendarEvent(curCalendar, curoAuth2Client);
-        res.send(curCalendar);
+        //Additionally, sends link to calendar, assuming they are signed onto chrome
+        createCalendarEvent(curCalendar, curoAuth2Client, res);
     } catch(err) {
         res.send(err.message);
     }
