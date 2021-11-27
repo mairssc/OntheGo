@@ -38,5 +38,8 @@ app.use('/calendar', calendarRoute);
 const userTestRoute = require('../route/userTest.js');
 app.use('/userTest', userTestRoute);
 
+const roomRoute = require('../route/room.js');
+app.use('/room', roomRoute);
+
 app.listen(port);
 console.log('Server listening on port ' + port);
