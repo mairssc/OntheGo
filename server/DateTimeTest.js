@@ -15,10 +15,23 @@
 //"2013-02-14T13:15:03-08:00" (YYYY-MM-DDTHH:mm:ssZ).
 
 
+// example calendar
+// {
+//     "summary": "Test 123",
+//     "start": {
+//       "dateTime": "2022-01-14T20:00:00.000Z",
+//       "timeZone": "America/Los_Angeles"
+//     },
+//     "end": {
+//       "dateTime": "2022-01-14T22:00:00.000Z",
+//       "timeZone": "America/Los_Angeles"
+//     }
+//   }
+
 var d = new Date(2022, 0, 14, 12);
 var d2 = new Date(2022, 0, 14, 14);
 var date = d.toISOString();
 var date2 = d2.toISOString();
 
-console.log(date)
-console.log(date2)
+console.log(date);
+console.log(date2);

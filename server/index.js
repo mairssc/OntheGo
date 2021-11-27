@@ -29,7 +29,7 @@ db.on('error', (error) => {
 })
 
 //This is where we run CLIENTNNSNSNSNSNSN
-app.use(express.static('../client'))
+app.use(express.static('../client'));
 
 //routes
 const calendarRoute = require('../route/calendar.js');
