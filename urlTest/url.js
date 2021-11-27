@@ -2,7 +2,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-//Creates randomUrl
+//Creates randomUrl, where url is the initial part of the url that is unchanged
 function randomUrl(url, length) {
     let charArray = 'abcdefghijklmnopqrstuvwxyz0123456789'.split('');
     for (var i = 0; i < length; i++) {
