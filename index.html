@@ -7,10 +7,13 @@
   <body>
     <p id="code"></p>
     <script>
-      let code = document.getElementById("code");
-      var x = location.search.slice(1).split("&")[0].split("=")[1];
-      console.log(x);
-      code.innerHTML = x;
+      const params = {}
+      document.location.search.substr(1).split('&').forEach(pair => {
+        [key, value] = pair.split('=');
+        params[key] = value;
+      })
+      console.log(params);
+      document.getElementById("code").innerHTML = params.code;
     </script>
   </body>
 </html>
