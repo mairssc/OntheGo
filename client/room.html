@@ -7,11 +7,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="room.css" />
   </head>
-  <body style="background-color: #DAECF6;">    
+  <body style="background-color: #DAECF6;">  
+  <ul class="flex-container wrap">  
     <input class="startbutton" type="text" placeholder="Title" id="name" name="name" required
-        minlength="2" maxlength="20" size="46">    
-      
-
+        minlength="2" maxlength="20" size="46"> 
+    </ul>
+    &nbsp;&nbsp;&nbsp;
+    <ul class="flex-container wrap">  
+    <input class="descriptionbutton" type="text" placeholder="Description" id="name" name="name" required
+        minlength="2" maxlength="40" size="46"> 
+    </ul>
+    &nbsp;&nbsp;&nbsp;
+    <ul class="flex-container wrap">  
+    <input class="startbutton" type="text" placeholder="Destination" id="name" name="name" required
+        minlength="2" maxlength="20" size="46"> 
+    </ul>
+    &nbsp;&nbsp;&nbsp;
+    <ul class="flex-container wrap">  
+    <input class="startbutton" type="text" placeholder="Date" id="name" name="name" required
+        minlength="2" maxlength="20" size="46"> 
+    </ul>
+​
     <div id="myDIV" class="header">
       <h2>Our Expenditures</h2>
       <input type="text" id="myInput" placeholder="Expenditure and Cost...">
@@ -25,11 +41,11 @@
     
     
     </ul>
-
+​
 <!-- 
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
-
+​
     <pre id="content" style="white-space: pre-wrap;"></pre>
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
