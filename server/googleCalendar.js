@@ -20,9 +20,11 @@ const oAuth2Client = new google.auth.OAuth2(
 
 
 //Sends user to authUrl
-function getAuthUrl() {
+function getAuthUrl(redirect) {
   console.log(redirectUris[1])
-    const authUrl = oAuth2Client.generateAuthUrl({
+    const curOAuth2Client = new google.auth.OAuth2(
+  clientId, clientSecret, redirect);
+    const authUrl = curOAuth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: SCOPES,
     });
