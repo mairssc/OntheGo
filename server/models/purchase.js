@@ -14,7 +14,7 @@ const PurchaseSchema = mongoose.Schema({
     required: true
   },
   owe: {
-    type: Array
+    type: Array,
     required: true
   }
 });
