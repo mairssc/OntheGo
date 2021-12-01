@@ -3,7 +3,9 @@ function getRandomInt(max) {
 }
 
 //Creates randomUrl based on date for the first 13 additional chars, then after can add additional chars
-function randomUrl(url, length) {
+function randomUrl() {
+    let length = 26;
+    let url = "http://localhost:8080/";
     url += (new Date()).getTime();
     if (length > 13) {
         let charArray = 'abcdefghijklmnopqrstuvwxyz0123456789'.split('');
