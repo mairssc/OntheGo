@@ -56,6 +56,32 @@ const roomSchema = new Schema({
                 required: false
             }
         }
+    },
+    /*
+        posts: [
+            {
+                name: String
+                message: String
+            }
+        ]
+    */
+    posts: {
+        type: Array,
+        required: false
+    }, 
+    /*
+        purchases: [
+            {
+                name: String
+                description: String
+                amount: Number
+                people: [String]
+            }
+        ]
+    */
+    purchases: {
+        type: Array,
+        required: false
     }
 })
 
