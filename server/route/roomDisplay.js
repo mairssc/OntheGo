@@ -7,7 +7,7 @@ const room = require('../models/room.js');
 
 router.get('/', (req, res) => {
     let code = req.query.code;
-    res.sendFile(path.join(__dirname, '../index.html'));
+    res.sendFile(path.join(__dirname, '../../index.html'));
 })
 
 module.exports = router;
