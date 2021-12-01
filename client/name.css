@@ -1,0 +1,36 @@
+
+.heading{
+    position: absolute;
+    width: 1046px;
+    height: 392px;
+    left: 200px;
+    top: 130px;
+    font-family: Reem Kufi;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 144px;
+    text-align: center;
+    }
+    
+    
+    .startbutton {
+        position: relative;
+    width: 332px;
+    height: 77px; 
+     left: 535px;
+    top: 400px;
+    background: #ffffff;
+    border-radius: 15px; 
+    
+     font-family: Reem Kufi;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 54px;
+    display: flex;
+      justify-content: center;
+      align-items: center;
+    z-index: 1;
+    color: #07638A;
+    }
