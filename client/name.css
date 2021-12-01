@@ -14,7 +14,7 @@
     }
     
     
-    .startbutton {
+    .namebutton {
         position: relative;
     width: 332px;
     height: 77px; 
@@ -33,4 +33,24 @@
       align-items: center;
     z-index: 1;
     color: #07638A;
+    }
+    .startbutton {
+    position: relative;
+    width: 150px;
+    height: 77px; 
+     left: 900px;
+    top: 325px;
+    background: #000000;
+    border-radius: 15px; 
+    
+     font-family: Reem Kufi;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 54px;
+    display: flex;
+      justify-content: center;
+      align-items: center;
+    z-index: 1;
+    color: #ffffff;
     }
