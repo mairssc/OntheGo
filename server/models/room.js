@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const roomSchema = new Schema({
     token: {
         type: String,
-        required: true
+        required: false
     },
 
     calendar: {

@@ -1,29 +1,34 @@
 const express = require("express");
+const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth");
+
+
 const router = express.Router();
 
 const calendar = require('../models/calendar.js');
-const room = require('../models/room.js');
+const Room = require('../models/room.js');
 
 router.get('/', (req, res) => {
     res.send('Welcome to room api!')
 })
 
 
-router.get('/getAll', async (req, res) => {
+router.get('/get', async (req, res) => {
     try {
-        const e = await room.find({});
+        const e = await Room.findOne({token: req.body.token});
         res.json(e);
     } catch(err) {
         res.send(err.message);
     }
 })
 
-router.get('/get', async (req, res) => {
+router.get('/getAll', async (req, res) => {
     try {
-        const e = await room.findOne({
-            url: req.query.url
-        });
-        res.json(e);
+        const room = await Room.find();
+        //const room = await Room.findOne({token: req.body.token});
+        res.json(room);
     } catch(err) {
         res.send(err.message);
     }
@@ -31,21 +36,15 @@ router.get('/get', async (req, res) => {
 
 router.post('/add', async (req, res) => {
     try {
-        let r = await room.findOne({
-            url: req.body.url
-        });
-        if (r) {
-            return res.status(400).json({
-                message: "Room Already Exists"
-            });
-        }
-        r = new room({
-            url: req.body.url,
-            calendar: req.body.calendar,
-            users: req.body.users
-        });
-        await r.save();
-        res.json(r);
+        const payload = {}
+        jwt.sign(payload, "randomString", {expiresIn: 1000000000}, async (err, token) => {
+            if (err) throw err;
+            room = new Room({calendar: req.body.calendar,
+                             token: token})
+            room.save();
+            res.json(room);
+          });
+       
     } catch(err) {
         res.send(err.message);
     }
