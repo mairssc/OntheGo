@@ -41,5 +41,9 @@ app.use('/userTest', userTestRoute);
 const roomRoute = require('../route/room.js');
 app.use('/room', roomRoute);
 
+const roomDisplayRoute = require('../route/roomDisplay.js');
+app.use('/roomDisplay', roomDisplayRoute);
+
+
 app.listen(port);
 console.log('Server listening on port ' + port);
