@@ -62,15 +62,18 @@ router.post('/add', async (req, res) => {
 })
 
 //give id for calendar and token json from /getToken
+//takes in uri
 router.get('/get/:id', async (req, res) => {
     try {
         let curCalendar = await calendar.findById(req.params.id);
+        let uri = req.query.uri;
         
         
         //ADD AUTH HANDELING, should be required in order to do anything
         //currently code, would be better if we had token, or some way of storing token
         //code shou
-        let curoAuth2Client = oAuth2Client;
+        let curoAuth2Client = new google.auth.OAuth2(
+            clientId, clientSecret, uri);
         let token = req.body;
         curoAuth2Client.setCredentials(token);
 
@@ -94,8 +97,9 @@ router.get('/get/:id', async (req, res) => {
 
 //call this when they want to make calendar event
 //this sends them back to home page with code, err, and scope in query
+//send uri as query
 router.get('/getAuthUrl' , async (req, res) => {
-    res.send(getAuthUrl());
+    res.send(getAuthUrl(req.query.uri));
 })
 
 
@@ -103,7 +107,9 @@ router.get('/getAuthUrl' , async (req, res) => {
 router.get('/getToken', async (req, res) => {
     try {
         let code = req.query.code;
-        let curoAuth2Client = oAuth2Client;
+        let uri = req.query.uri;
+        let curoAuth2Client = new google.auth.OAuth2(
+            clientId, clientSecret, uri);
         curoAuth2Client.getToken(code, (err, token) => {
             if (err) return console.error('Error retrieving access token', err);
             res.send(token);
