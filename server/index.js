@@ -44,6 +44,11 @@ app.use('/room', roomRoute);
 const roomDisplayRoute = require('../route/roomDisplay.js');
 app.use('/roomDisplay', roomDisplayRoute);
 
+const user = require("./routes/user");
+app.use('/user', user)
+const bulletin = require("./routes/bulletin");
+app.use('/bulletin', bulletin)
+
 
 app.listen(port);
 console.log('Server listening on port ' + port);
