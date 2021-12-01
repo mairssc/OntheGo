@@ -56,17 +56,7 @@ const roomSchema = new Schema({
                 required: false
             }
         }
-    },
-    // change depending on how users is implemented
-    users: {
-        type: [String],
-        required: true
     }
-    // depends on how we do purchases
-    // purchases: {
-    //     type: [Number],
-    //     required: true
-    // }
 })
 
 module.exports = mongoose.model('room', roomSchema);
