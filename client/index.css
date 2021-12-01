@@ -36,3 +36,22 @@ display: flex;
 z-index: 1;
 color: #FFFFFF;
 }
+
+.urlDisplay {
+    position: relative;
+width: 332px;
+height: 77px;
+left: 380px;
+top: 500px;
+border-radius: 15px;
+font-family: Reem Kufi;
+font-style: normal;
+font-weight: normal;
+font-size: 36px;
+line-height: 54px;
+display: flex;
+  justify-content: center;
+  align-items: center;
+z-index: 1;
+color: #000000;
+} 
