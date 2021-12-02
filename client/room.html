@@ -41,13 +41,23 @@
       <br>
       <ul id="myUL" class="list"></ul>
     </div>
-    </ul>
+
+
+
+    <div id="myDIV2" class="header2">
+      <h2>Bulletin Board</h2>
+      <input type="text" id="myInput2" placeholder="Post">
+      <span onclick="newElement2()" id="add" class="addBtn">Add</span>
+      <br>
+      <br>
+      <br>
+      <ul id="myUL2" class="list"></ul>
+    </div>
+
+
     <div class="calendarmessage">Finalized your trip? Add it to Google Calendar</div>
     <button onclick="startCalender()" id= "calendarbutton" class="calendarbutton">Add to Calendar</button>
-    <div class="mapmessage">Chose your destination? Check Google Maps!</div>
-    <button id= "mapbutton" class="mapbutton">Go to Maps</button>
-    <div class="finishmessage">Finished with your trip? Find out how much everyone owes!</div>
-    <button id= "finishbutton" class="finishbutton">Calculate Costs</button>
+    <button id= "savebutton" class="mapbutton">Save</button>
     <script src="room.js"></script>
     <script>
       function addoldPurchase(input, name, cost) {
