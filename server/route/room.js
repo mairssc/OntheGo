@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 router.get('/get', async (req, res) => {
     try {
-        const e = await Room.findOne({token: req.body.token});
+        const e = await Room.findOne({token: req.query.token});
         res.json(e);
     } catch(err) {
         res.send(err.message);
