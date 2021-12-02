@@ -34,7 +34,7 @@ async function newElement() {
       params[key] = value;
   })
   var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
+  var inputValue = document.getElementById("myInput").value + " paid for by " + params.name;
   var t = document.createTextNode(inputValue);
   var nameValue = document.getElementById("peopleInput").value;
   var u = document.createTextNode(nameValue);
