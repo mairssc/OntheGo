@@ -143,5 +143,31 @@
       update()
       
     </script>
+
+    <script>
+      async function startCalender() {
+          let authUrl = await fetch('/calendar/getAuthUrl?uri=' + encodeURIComponent(window.location.href), {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+          }).then(res => res.json())
+          window.location.replace(authUrl.url);
+      }
+    </script>
+    
+    <script>
+      const params = {}
+      document.location.search.substr(1).split('&').forEach(pair => {
+      [key, value] = pair.split('=');
+      params[key] = value;
+      })
+      async function showCalendarLink() {
+        let data = await fetch('/calendar/getToken?uri=' + encodeURIComponent(window.location.href) + '&token=' +
+        params.code, {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json'},
+        }).then(res => res.json())
+
+      }
+    </script>
   </body>
 </html>

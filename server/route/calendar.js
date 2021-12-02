@@ -97,7 +97,7 @@ router.get('/get/:id', async (req, res) => {
 //this sends them back to home page with code, err, and scope in query
 //send uri as query
 router.get('/getAuthUrl' , async (req, res) => {
-    res.send(getAuthUrl(req.query.uri));
+    res.send({url: getAuthUrl(req.query.uri)});
 })
 
 

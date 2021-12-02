@@ -82,12 +82,10 @@ async function newElement() {
   }
 }
 
-function startCalendar() {
-    var url ="http://localhost:8080/calendar/getAuthUrl?uri="
-    url += encodeURIComponent(window.location.href);     
-    getData(url, {}).then(data => {
-        console.log(data)
-    }); 
+async function startCalender() {
+    let authUrl = await getData('/calendar/getAuthUrl?uri=' + encodeURIComponent(window.location.href), {})
+    .then(res => res.json()); 
+    location.href = authUrl;
 }
 
 async function postData(url = '', body = {}) {
