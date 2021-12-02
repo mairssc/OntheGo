@@ -5,34 +5,43 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const auth = require("../middleware/auth");
 
-const User = require("../models/User");
 
+const Room = require("../models/room")
+const Post = require("../models/post")
 
-router.post("/post", auth, async (req, res) => {
+router.post("/post", async (req, res) => {
     try {
-        const user = await User.findById(req.user.id);
+    	const name =  req.query.name
+    	const token = req.query.token
+        const room = await Room.findOne({token: token});
         const post = req.body.post;
-        user.posts.push(post);
+        const newPost = new Post({post: post,
+                                    poster: name})
+        console.log(newPost)
+        room.posts.push(newPost)
 
-        await user.save();
+        await room.save();
 
-        res.json({ posts: user.posts});
+        res.json({ posts: room.posts});
     } catch (e) {
         res.send({ message: "Error in Fetching User"});
     }
 })
 
-router.delete("/delete", auth, async (req, res) => {
+router.delete("/delete", async (req, res) => {
     try {
-        const user = await User.findById(req.user.id);
+    	const name = req.query.name;
+    	const token = req.query.token;
+        const room = await Room.findOne({token: token});
         const index = req.body.postIndex;
+        console.log("333")
         if (index > -1) {
-            user.posts.splice(index, 1);
+            room.posts.splice(index, 1);
         }
 
-        await user.save();
+        await room.save();
 
-        res.json({ posts: user.posts});
+        res.json({ posts: room.posts});
     } catch (e) {
         res.send({ message: "Error in Fetching User"});
     }
@@ -40,18 +49,9 @@ router.delete("/delete", auth, async (req, res) => {
 
 router.get("/all", async (req, res) => {
     try {
-        const promise = new Promise((resolve, reject) => {
-            User.find().then((users) => {
-                allPosts = []
-                users.forEach(element => {
-                    element.posts.forEach(post => {
-                        allPosts.push({name: element.name, post: post})
-                    })
-                })
-                resolve(allPosts)
-            })
-        })
-        promise.then((allPosts) => res.json({posts: allPosts}))
+        const token = req.query.token;
+        const room = await Room.findOne({token: token});
+        res.json({posts: room.posts})
     } catch (e) {
         res.send({message : "Error in Fetching User"});
     }
