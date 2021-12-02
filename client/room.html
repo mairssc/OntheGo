@@ -60,9 +60,9 @@
     <button id= "savebutton" class="mapbutton">Save</button>
     <script src="room.js"></script>
     <script>
-      function addoldPurchase(input, name, cost) {
+      function addoldPurchase(input, name, cost, purchaser) {
         var li = document.createElement("li");
-        document.getElementById("myInput").value = input + " paid for by " + params.name;
+        document.getElementById("myInput").value = input + " paid for by " + purchaser;
         var inputValue = document.getElementById("myInput").value;
         var t = document.createTextNode(inputValue);
 
@@ -172,7 +172,7 @@
           if (!curPurchase.purchaseName) {
             continue;
           }
-          addoldPurchase(curPurchase.purchaseName, curPurchase.owe.join(', '), curPurchase.price);
+          addoldPurchase(curPurchase.purchaseName, curPurchase.owe.join(', '), curPurchase.price, curPurchase.purchaser);
         }
         for (var i = 0; i < room.posts.length; i++) {
           currPost = room.posts[i]

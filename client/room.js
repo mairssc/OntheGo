@@ -112,9 +112,7 @@ async function newElement2() {
   }).then(resp => resp.json()).then(data => console.log(data)) 
 
   
-  document.getElementById("myInput").value = "";
-  document.getElementById("peopleInput").value = "";
-  document.getElementById("costInput").value = "";
+  document.getElementById("myInput2").value = "";
   var span = document.createElement("SPAN");
   var txt = document.createTextNode("\u00D7");
   span.className = "close";

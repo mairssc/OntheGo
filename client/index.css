@@ -39,6 +39,7 @@ color: #FFFFFF;
 
 .urlDisplay {
     position: relative;
+    word-break: break-all;
 width: 332px;
 height: 77px;
 left: 380px;
