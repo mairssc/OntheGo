@@ -103,6 +103,29 @@
         }
             }
 
+      function addOldPosts(poster, post){
+        var li = document.createElement("li");
+        var t = document.createTextNode(post);
+        linebreak = document.createElement("br");
+        li.appendChild(document.createTextNode(poster + ":"))
+        li.appendChild(linebreak2)
+        li.appendChild(t);
+        document.getElementById("myUL2").appendChild(li);
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+          }
+        }
+            }
+
 
       const params = {}
       document.location.search.substr(1).split('&').forEach(pair => {
@@ -148,6 +171,13 @@
             continue;
           }
           addoldPurchase(curPurchase.purchaseName, curPurchase.owe.join(', '), curPurchase.price);
+        }
+        for (var i = 0; i < room.posts.length; i++) {
+          currPost = room.posts[i]
+          if (!currPost.post) {
+            continue;
+          }
+          addOldPosts(currPost.poster, currPost.post)
         }
       }
       update()

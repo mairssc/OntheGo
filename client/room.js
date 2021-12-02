@@ -90,9 +90,11 @@ async function newElement2() {
   })
   var li = document.createElement("li");
   var inputValue = document.getElementById("myInput2").value;
-  var t = document.createTextNode(params.name + ":" + inputValue);
+  var t = document.createTextNode(inputValue);
   linebreak = document.createElement("br");
   linebreak2 = document.createElement("br");
+  li.appendChild(document.createTextNode(params.name + ":"))
+  li.appendChild(linebreak2)
   li.appendChild(t);
   if (inputValue === '') {
     alert("You must write something!");
@@ -182,7 +184,7 @@ function postURL() {
     })
 }
 
-document.getElementById("mapbutton").addEventListener("click", async () => {
+document.getElementById("savebutton").addEventListener("click", async () => {
   const title = document.getElementById("title").value
   const description= document.getElementById("description").value
   const destination = document.getElementById("destination").value
