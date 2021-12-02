@@ -9,26 +9,26 @@
   </head>
   <body style="background-color: #DAECF6;">  
     <ul class="flex-container wrap">  
-        <input class="startbutton" type="text" placeholder="Title" id="name" name="name" required
+        <input class="startbutton" type="text" placeholder="Title" id="title" name="name" required
             minlength="2" maxlength="20" size="46"> 
         </ul>
         &nbsp;&nbsp;&nbsp;
         <ul class="flex-container wrap">  
-        <input class="descriptionbutton" type="text" placeholder="Description" id="name" name="name" required
+        <input class="descriptionbutton" type="text" placeholder="Description" id="desc" name="name" required
             minlength="2" maxlength="20" size="46"> 
         </ul>
         &nbsp;&nbsp;&nbsp;
         <ul class="flex-container wrap">  
-        <input class="startbutton" type="text" placeholder="Destination" id="name" name="name" required
+        <input class="startbutton" type="text" placeholder="Destination" id="dest" name="name" required
             minlength="2" maxlength="20" size="46"> 
         </ul>
         &nbsp;&nbsp;&nbsp;
         <ul class="flex-container wrap">  
-        <input class="datebutton" type="text" placeholder="Start Date: MM/DD/YY" id="name" name="name" required
-            minlength="2" maxlength="20" size="46"> 
+        <input class="datebutton" type="text" placeholder="Start Date: MM/DD/YY" id="startDate" name="name" required
+            minlength="2" maxlength="20" size="70"> 
         &nbsp;&nbsp;&nbsp;
-        <input class="datebutton" type="text" placeholder="End Date: MM/DD/YY" id="name" name="name" required
-            minlength="2" maxlength="20" size="46"> 
+        <input class="datebutton" type="text" placeholder="End Date: MM/DD/YY" id="endDate" name="name" required
+            minlength="2" maxlength="20" size="70"> 
         </ul>
     <div id="myDIV" class="header">
       <h2>Our Expenditures</h2>
@@ -49,5 +49,96 @@
     <div class="finishmessage">Finished with your trip? Find out how much everyone owes!</div>
     <button id= "finishbutton" class="finishbutton">Calculate Costs</button>
     <script src="room.js"></script>
+    <script>
+      function addoldPurchase(input, name, cost) {
+        var li = document.createElement("li");
+        document.getElementById("myInput").value = input;
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+
+        document.getElementById("peopleInput").value = name;
+        var nameValue = document.getElementById("peopleInput").value;
+        var u = document.createTextNode(nameValue);
+
+        document.getElementById("costInput").value = cost;
+        var costValue = document.getElementById("costInput").value;
+        var v = document.createTextNode(costValue);
+        linebreak = document.createElement("br");
+        linebreak2 = document.createElement("br");
+        li.appendChild(t);
+        li.appendChild(linebreak);
+        li.appendChild(u);
+        li.appendChild(linebreak2);
+        li.appendChild(v); 
+        if (inputValue === '' || nameValue === '' || costValue === '') {
+          alert("You must write something!");
+        } else {
+          document.getElementById("myUL").appendChild(li);
+        }
+        
+        document.getElementById("myInput").value = "";
+        document.getElementById("peopleInput").value = "";
+        document.getElementById("costInput").value = "";
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+          }
+        }
+            }
+
+
+      const params = {}
+      document.location.search.substr(1).split('&').forEach(pair => {
+      [key, value] = pair.split('=');
+      params[key] = value;
+      })
+      console.log(params.token)
+      async function update() {
+        let room = await fetch('./room/get?token=' + params.token, {
+          method: "GET",
+          headers: {'Content-Type': 'application/json'}
+        }).then(res => res.json())
+        let calendar = room.calendar
+        console.log(room)
+
+        if (calendar.summary != "Null") {
+          let start = new Date(calendar.start.dateTime);
+          var month = start.getUTCMonth() + 1; //months from 1-12
+          var day = start.getUTCDate();
+          var year = start.getUTCFullYear();
+          let startStr = month+'/'+day+'/'+year
+          end = new Date(calendar.start.dateTime);
+          month = end.getUTCMonth() + 1; //months from 1-12
+          day = end.getUTCDate();
+          year = end.getUTCFullYear();
+          let endStr = month+'/'+day+'/'+year
+          
+          if (calendar.summary) {
+            title = document.getElementById("title").value = calendar.summary;
+          }
+          if (room.description) {
+            desc = document.getElementById("desc").value = room.description;
+          }
+          if (calendar.location) {
+            dest = document.getElementById("dest").value = calendar.location;
+          }
+          startDate = document.getElementById("startDate").value = startStr;
+          endDate = document.getElementById("endDate").value = endStr;
+        }
+        for (var i = 0; i < room.purchases.length; i++) {
+          curPurchase = room.purchases[i]
+          addoldPurchase(curPurchase.purchaseName, curPurchase.owe.join(', '), curPurchase.price);
+        }
+      }
+      update()
+      
+    </script>
   </body>
 </html>

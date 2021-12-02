@@ -7,7 +7,7 @@ async function randomUrl() {
     let url = "http://localhost:8080/roomDisplay?token=";
     data = {
         calendar: {
-        summary: "Test 123",
+        summary: "Null",
         start: {
           dateTime: "2022-01-14T20:00:00.000Z",
           timeZone: "America/Los_Angeles"
