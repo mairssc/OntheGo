@@ -43,10 +43,15 @@ router.post(
         const {
           name
         } = req.body
-        users.push(name);
-        let newRoom = await Room.findOneAndUpdate({token: token}, {posts: users});
+        if (await !users.includes(name)) {
+          users.push(name);
+          console.log(users)
+          await room.save();
+          res.json(room);
+        } else {
+          res.json(room)
+        }
 
-        await newRoom.save();
     }
     } catch (err) {
       console.log(err.message);
@@ -55,22 +60,6 @@ router.post(
   }
 );
 
-/**
-* @method - GET
-* @description - Get LoggedIn User
-* @param - /user/me
-*/
-
-
-router.get("/me", auth, async (req, res) => {
-  try {
-    // request.user is getting fetched from Middleware after token authentication
-    const user = await User.findById(req.user.id);
-    res.json(user);
-  } catch (e) {
-    res.send({ message: "Error in Fetching user" });
-  }
-});
 
 router.get("/all", async (req, res) => {
   try {
