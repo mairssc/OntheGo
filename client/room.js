@@ -82,6 +82,54 @@ async function newElement() {
   }
 }
 
+async function newElement2() {
+  const params = {}
+      document.location.search.substr(1).split('&').forEach(pair => {
+      [key, value] = pair.split('=');
+      params[key] = value;
+  })
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput2").value;
+  var t = document.createTextNode(inputValue);
+  linebreak = document.createElement("br");
+  linebreak2 = document.createElement("br");
+  li.appendChild(document.createTextNode(params.name + ":"))
+  li.appendChild(linebreak2)
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL2").appendChild(li);
+  }
+
+  fetch('/bulletin/post?name=' + params.name + '&token=' + params.token, {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      post: inputValue,
+      poster: params.name
+    })
+  }).then(resp => resp.json()).then(data => console.log(data)) 
+
+  
+  document.getElementById("myInput").value = "";
+  document.getElementById("peopleInput").value = "";
+  document.getElementById("costInput").value = "";
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+
+}
+
 async function startCalender() {
     let authUrl = await getData('/calendar/getAuthUrl?uri=' + encodeURIComponent(window.location.href), {})
     .then(res => res.json()); 
@@ -136,7 +184,7 @@ function postURL() {
     })
 }
 
-document.getElementById("mapbutton").addEventListener("click", async () => {
+document.getElementById("savebutton").addEventListener("click", async () => {
   const title = document.getElementById("title").value
   const description= document.getElementById("description").value
   const destination = document.getElementById("destination").value

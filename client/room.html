@@ -41,13 +41,23 @@
       <br>
       <ul id="myUL" class="list"></ul>
     </div>
-    </ul>
+
+
+
+    <div id="myDIV2" class="header2">
+      <h2>Bulletin Board</h2>
+      <input type="text" id="myInput2" placeholder="Post">
+      <span onclick="newElement2()" id="add" class="addBtn">Add</span>
+      <br>
+      <br>
+      <br>
+      <ul id="myUL2" class="list"></ul>
+    </div>
+
+
     <div class="calendarmessage">Finalized your trip? Add it to Google Calendar</div>
     <button onclick="startCalender()" id= "calendarbutton" class="calendarbutton">Add to Calendar</button>
-    <div class="mapmessage">Chose your destination? Check Google Maps!</div>
-    <button id= "mapbutton" class="mapbutton">Go to Maps</button>
-    <div class="finishmessage">Finished with your trip? Find out how much everyone owes!</div>
-    <button id= "finishbutton" class="finishbutton">Calculate Costs</button>
+    <button id= "savebutton" class="mapbutton">Save</button>
     <script src="room.js"></script>
     <script>
       function addoldPurchase(input, name, cost) {
@@ -79,6 +89,29 @@
         document.getElementById("myInput").value = "";
         document.getElementById("peopleInput").value = "";
         document.getElementById("costInput").value = "";
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+          }
+        }
+            }
+
+      function addOldPosts(poster, post){
+        var li = document.createElement("li");
+        var t = document.createTextNode(post);
+        linebreak = document.createElement("br");
+        li.appendChild(document.createTextNode(poster + ":"))
+        li.appendChild(linebreak2)
+        li.appendChild(t);
+        document.getElementById("myUL2").appendChild(li);
+
         var span = document.createElement("SPAN");
         var txt = document.createTextNode("\u00D7");
         span.className = "close";
@@ -140,6 +173,13 @@
             continue;
           }
           addoldPurchase(curPurchase.purchaseName, curPurchase.owe.join(', '), curPurchase.price);
+        }
+        for (var i = 0; i < room.posts.length; i++) {
+          currPost = room.posts[i]
+          if (!currPost.post) {
+            continue;
+          }
+          addOldPosts(currPost.poster, currPost.post)
         }
       }
       update()
