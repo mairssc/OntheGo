@@ -75,9 +75,18 @@ async function newElement() {
   li.appendChild(span);
 
   for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
+    console.log('going')
+      close[i].onclick = function(e) {
+      let arr = Array.from(close)
       var div = this.parentElement;
       div.style.display = "none";
+      fetch('/purchase/delete?token=' + params.token, {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          purchaseIndex: arr.indexOf(e.target)
+        })
+      })
     }
   }
 }
@@ -120,9 +129,17 @@ async function newElement2() {
   li.appendChild(span);
 
   for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
+      close[i].onclick = function(e) {
+      let arr = Array.from(close)
       var div = this.parentElement;
       div.style.display = "none";
+      fetch('/bulletin/delete?token=' + params.token, {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          postIndex: arr.indexOf(e.target)
+        })
+      })
     }
   }
 

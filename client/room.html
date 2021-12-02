@@ -99,11 +99,8 @@
         li.appendChild(u);
         li.appendChild(linebreak2);
         li.appendChild(v); 
-        if (inputValue === '' || nameValue === '' || costValue === '') {
-          alert("You must write something!");
-        } else {
-          document.getElementById("myUL").appendChild(li);
-        }
+        
+        document.getElementById("myUL").appendChild(li);
         
         document.getElementById("myInput").value = "";
         document.getElementById("peopleInput").value = "";
@@ -115,11 +112,19 @@
         li.appendChild(span);
 
         for (i = 0; i < close.length; i++) {
-          close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-          }
-        }
+      close[i].onclick = function(e) {
+      let arr = Array.from(close)
+      var div = this.parentElement;
+      div.style.display = "none";
+      fetch('/purchase/delete?token=' + params.token, {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          purchaseIndex: arr.indexOf(e.target)
+        })
+      })
+    }
+  }
             }
 
       function addOldPosts(poster, post){
@@ -138,11 +143,19 @@
         li.appendChild(span);
 
         for (i = 0; i < close.length; i++) {
-          close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-          }
-        }
+      close[i].onclick = function(e) {
+      let arr = Array.from(close)
+      var div = this.parentElement;
+      div.style.display = "none";
+      fetch('/bulletin/delete?token=' + params.token, {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          postIndex: arr.indexOf(e.target)
+        })
+      })
+    }
+  }
             }
 
 

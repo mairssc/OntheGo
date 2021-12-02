@@ -30,7 +30,6 @@ router.post("/post", async (req, res) => {
 
 router.delete("/delete", async (req, res) => {
     try {
-    	const name = req.query.name;
     	const token = req.query.token;
         const room = await Room.findOne({token: token});
         const index = req.body.postIndex;
