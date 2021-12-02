@@ -119,3 +119,26 @@ function postURL() {
         console.log(data); // JSON data parsed by `data.json()` call
     })
 }
+
+document.getElementById("add").addEventListener('click', async function() {
+  const params = {};
+  document.location.search.substr(1).split('&').forEach(pair => {
+      [key, value] = pair.split('=');
+      params[key] = value;
+  });
+  let purchaseName = document.getElementById("myInput").value;
+  let owe = document.getElementById("peopleInput").value.split(', ');
+  let price = Number(document.getElementById("costInput").value);
+  let purchaser = params.name;
+  
+  fetch('./purchase/add?name=' + purchaser + '&token=' + params.token, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+        purchaseName: purchaseName,
+        purchaser: purchaser,
+        price: price,
+        owe: owe
+    })
+  }).then(resp => resp.json()).then(data => console.log(data))
+})

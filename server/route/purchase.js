@@ -22,12 +22,11 @@ router.post('/add', async (req, res) => {
     	const name =  req.query.name
     	const token = req.query.token
         const room = await Room.findOne({token: token});
-        const purchase = req.body.purchase;
         const newPurchase = new Purchase({
-            purchaseName: purchase.purchaseName,
+            purchaseName: req.body.purchaseName,
             purchaser: name,
-            price: purchase.price,
-            owe: purchase.owe
+            price: req.body.price,
+            owe: req.body.owe
         })
         console.log(newPurchase)
         room.purchases.push(newPurchase)

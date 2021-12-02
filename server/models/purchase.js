@@ -6,7 +6,7 @@ const PurchaseSchema = mongoose.Schema({
     required: true
   },
   purchaser: {
-    type: Array,
+    type: String,
     required: true
   },
   price: {
