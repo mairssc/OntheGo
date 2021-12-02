@@ -50,6 +50,27 @@ router.post('/add', async (req, res) => {
     }
 })
 
+router.post('/description', async (req, res) => {
+    try {
+        const room = await Room.findOne({token: req.query.token});
+        console.log(room.description)
+        room.description = req.body.description
+        await room.save();
+        res.json(room);
+    } catch(err) {
+        res.send(err.message);
+    }
+})
+
+router.get('/description', async (req, res) => {
+    try {
+        const room = await Room.findOne({token: req.query.token});
+        res.json({description: room.description});
+    } catch(err) {
+        res.send(err.message);
+    }
+})
+
 
 
 module.exports = router;
