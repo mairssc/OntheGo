@@ -8,52 +8,46 @@
     <link rel="stylesheet" href="room.css" />
   </head>
   <body style="background-color: #DAECF6;">  
-  <ul class="flex-container wrap">  
-    <input class="startbutton" type="text" placeholder="Title" id="name" name="name" required
-        minlength="2" maxlength="20" size="46"> 
-    </ul>
-    &nbsp;&nbsp;&nbsp;
     <ul class="flex-container wrap">  
-    <input class="descriptionbutton" type="text" placeholder="Description" id="name" name="name" required
-        minlength="2" maxlength="40" size="46"> 
-    </ul>
-    &nbsp;&nbsp;&nbsp;
-    <ul class="flex-container wrap">  
-    <input class="startbutton" type="text" placeholder="Destination" id="name" name="name" required
-        minlength="2" maxlength="20" size="46"> 
-    </ul>
-    &nbsp;&nbsp;&nbsp;
-    <ul class="flex-container wrap">  
-    <input class="startbutton" type="text" placeholder="Date" id="name" name="name" required
-        minlength="2" maxlength="20" size="46"> 
-    </ul>
-​
+        <input class="startbutton" type="text" placeholder="Title" id="name" name="name" required
+            minlength="2" maxlength="20" size="46"> 
+        </ul>
+        &nbsp;&nbsp;&nbsp;
+        <ul class="flex-container wrap">  
+        <input class="descriptionbutton" type="text" placeholder="Description" id="name" name="name" required
+            minlength="2" maxlength="20" size="46"> 
+        </ul>
+        &nbsp;&nbsp;&nbsp;
+        <ul class="flex-container wrap">  
+        <input class="startbutton" type="text" placeholder="Destination" id="name" name="name" required
+            minlength="2" maxlength="20" size="46"> 
+        </ul>
+        &nbsp;&nbsp;&nbsp;
+        <ul class="flex-container wrap">  
+        <input class="datebutton" type="text" placeholder="Start Date: MM/DD/YY" id="name" name="name" required
+            minlength="2" maxlength="20" size="46"> 
+        &nbsp;&nbsp;&nbsp;
+        <input class="datebutton" type="text" placeholder="End Date: MM/DD/YY" id="name" name="name" required
+            minlength="2" maxlength="20" size="46"> 
+        </ul>
     <div id="myDIV" class="header">
       <h2>Our Expenditures</h2>
-      <input type="text" id="myInput" placeholder="Expenditure and Cost...">
+      <input type="text" id="myInput" placeholder="Expenditure">
+      <input type="text" id="peopleInput" placeholder="People">
+      <input type="text" id="costInput" placeholder="Cost">
       <span onclick="newElement()" class="addBtn">Add</span>
       <br>
       <br>
       <br>
       <ul id="myUL" class="list"></ul>
     </div>
-    
-    
-    
     </ul>
-​
-<!-- 
-    <button id="authorize_button" style="display: none;">Authorize</button>
-    <button id="signout_button" style="display: none;">Sign Out</button>
-​
-    <pre id="content" style="white-space: pre-wrap;"></pre>
-    <script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script> -->
-    <!-- 
-    hello
-    </script> -->
+    <div class="calendarmessage">Finalized your trip? Add it to Google Calendar</div>
+    <button id= "calendarbutton" class="calendarbutton">Add to Calendar</button>
+    <div class="mapmessage">Chose your destination? Check Google Maps!</div>
+    <button id= "mapbutton" class="mapbutton">Go to Maps</button>
+    <div class="finishmessage">Finished with your trip? Find out how much everyone owes!</div>
+    <button id= "finishbutton" class="finishbutton">Calculate Costs</button>
     <script src="room.js"></script>
   </body>
 </html>
