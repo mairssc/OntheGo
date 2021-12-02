@@ -22,9 +22,8 @@ async function randomUrl() {
     let room = await fetch('/room/add', {
         method: "POST",
         body: data
-    })
-    url += room.token
-    return url;
+    }).then(response => response.json())
+    return url + room.token;
 }
 
 async function postURL() {
