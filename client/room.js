@@ -27,7 +27,12 @@ list.addEventListener('click', function(ev) {
 }, false);
 
 // Create a new list item when clicking on the "Add" button
-function newElement() {
+async function newElement() {
+  const params = {}
+      document.location.search.substr(1).split('&').forEach(pair => {
+      [key, value] = pair.split('=');
+      params[key] = value;
+  })
   var li = document.createElement("li");
   var inputValue = document.getElementById("myInput").value;
   var t = document.createTextNode(inputValue);
@@ -47,6 +52,19 @@ function newElement() {
   } else {
     document.getElementById("myUL").appendChild(li);
   }
+
+  fetch('/purchase/add?name=' + params.name + '&token=' + params.token, {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      purchaseName: inputValue,
+      owe: nameValue.split(', '),
+      price: Number(costValue),
+      purchaser: params.name
+    })
+  }).then(resp => resp.json()).then(data => console.log(data))
+
+  
   document.getElementById("myInput").value = "";
   document.getElementById("peopleInput").value = "";
   document.getElementById("costInput").value = "";
@@ -119,26 +137,3 @@ function postURL() {
         console.log(data); // JSON data parsed by `data.json()` call
     })
 }
-
-document.getElementById("add").addEventListener('click', async function() {
-  const params = {};
-  document.location.search.substr(1).split('&').forEach(pair => {
-      [key, value] = pair.split('=');
-      params[key] = value;
-  });
-  let purchaseName = document.getElementById("myInput").value;
-  let owe = document.getElementById("peopleInput").value.split(', ');
-  let price = Number(document.getElementById("costInput").value);
-  let purchaser = params.name;
-  
-  fetch('./purchase/add?name=' + purchaser + '&token=' + params.token, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-        purchaseName: purchaseName,
-        purchaser: purchaser,
-        price: price,
-        owe: owe
-    })
-  }).then(resp => resp.json()).then(data => console.log(data))
-})
