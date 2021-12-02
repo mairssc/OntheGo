@@ -36,25 +36,24 @@ router.get('/getAll', async (req, res) => {
 //look at schemacalendar for required syntax
 router.post('/add', async (req, res) => {
     try {
-    	const name =  req.query.name
     	const token = req.query.token
         const room = await Room.findOne({token: token});
-        const calendar = req.body.calendar;
+        const c = req.body.calendar;
         const newCalendar = new calendar({
-            summary: calendar.summary,
-            location: calendar.summary,
-            start: calendar.start,
-            end: calendar.end,
-            recurrence: calendar.recurrence,
-            attendees: calendar.attendees,
-            reminders: calendar.reminders
+            summary: c.summary,
+            location: c.location,
+            start: c.start,
+            end: c.end,
+            recurrence: c.recurrence,
+            attendees: c.attendees,
+            reminders: c.reminders
         })
         console.log(newCalendar)
-        room.purchases.push(newCalendar)
+        room.calendar = newCalendar;
 
         await room.save();
 
-        await res.json({ purchases: room.purchases});
+        await res.json({ calendar: room.calendar});
     } catch (e) {
         res.send({ message: e.message});
     }
