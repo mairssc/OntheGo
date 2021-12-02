@@ -31,7 +31,7 @@ router.post(
       });
     }
 
-    const token = req.header("token");
+    const token = req.body.token;
     try {
       let room = await Room.findOne({
         token
