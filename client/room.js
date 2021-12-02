@@ -188,6 +188,8 @@ document.getElementById("savebutton").addEventListener("click", async () => {
   const destination = document.getElementById("destination").value
   const start = document.getElementById("start").value
   const end = document.getElementById("end").value
+  const sT = document.getElementById("startTime").value
+  const eT = document.getElementById("endTime").value
 
   if (title) {
     const params = {}
@@ -238,11 +240,26 @@ document.getElementById("savebutton").addEventListener("click", async () => {
     })
   }
 
+  function setHours(dt, h) {
+    var s = /(\d+):(\d+)(.+)/.exec(h);
+    console.log(s)
+    dt.setHours(s[3] === " PM" ? 
+      12 + parseInt(s[1], 10) : 
+      parseInt(s[1], 10));
+    dt.setMinutes(parseInt(s[2],10));
+  }
+
+
   startTime = new Date(start);
+  setHours(startTime, sT)
   endTime = new Date(end);
+  setHours(endTime, eT)
+  console.log(startTime)
   if (startTime != "Invalid Date" && endTime != "Invalid Date") {
     if (startTime > endTime) {
       console.log('prob')
+      console.log(startTime)
+      console.log(endTime)
       return;
     }
     let s = startTime.toISOString();

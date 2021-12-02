@@ -30,12 +30,39 @@
 
 var d = new Date(2022, 0, 14, 12);
 var d2 = new Date(2022, 0, 14, 14);
-var d3 = new Date("11/12/21")
-console.log(d3 == "Invalid Date");
-console.log(d3.toISOString())
-var date = d.toISOString();
-var date2 = d2.toISOString();
+
+function setHours(dt, h) {
+    var s = /(\d+):(\d+)(.+)/.exec(h);
+    dt.setHours(s[3] === "pm" ? 
+      12 + parseInt(s[1], 10) : 
+      parseInt(s[1], 10));
+    dt.setMinutes(parseInt(s[2],10));
+  }
+
+  function formatAMPM(date) {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    minutes = minutes.toString().padStart(2, '0');
+    let strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+d3 = new Date("11/21/2021")
+setHours(d3, "3:30am");
+
+console.log(formatAMPM(d3))
 
 
-console.log(date);
-console.log(date2);
+// d3.setHours(1)
+// console.log(d3.getUTCHours())
+// formatDate(d3.getUTCHours(), d3.getUTCMinutes())
+// console.log(d3 == "Invalid Date");
+// console.log(d3.toISOString())
+// var date = d.toISOString();
+// var date2 = d2.toISOString();
+
+
+// console.log(date);
+// console.log(date2);

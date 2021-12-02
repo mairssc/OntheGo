@@ -30,6 +30,13 @@
         <input class="datebutton" type="text" placeholder="End Date: MM/DD/YY" id="end" 
             minlength="2" maxlength="20" size="46"> 
         </ul>
+        <ul class="flex-container wrap">  
+          <input class="datebutton" type="text" placeholder="Start Time: 12:00 AM/PM" id="startTime"
+              minlength="2" maxlength="20" size="46"> 
+          &nbsp;&nbsp;&nbsp;
+          <input class="datebutton" type="text" placeholder="End Time: 12:00 AM/PM" id="endTime" 
+              minlength="2" maxlength="20" size="46"> 
+          </ul>
     <div id="myDIV" class="header">
       <h2>Our Expenditures</h2>
       <input type="text" id="myInput" placeholder="Description">
@@ -59,6 +66,18 @@
     <button onclick="startCalender()" id= "calendarbutton" class="calendarbutton">Add to Calendar</button>
     <button id= "savebutton" class="mapbutton">Save</button>
     <script src="room.js"></script>
+    <script>
+      function formatAMPM(date) {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes.toString().padStart(2, '0');
+        let strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+    }
+    </script>
     <script>
       function addoldPurchase(input, name, cost, purchaser) {
         var li = document.createElement("li");
@@ -143,15 +162,32 @@
 
         if (calendar.summary != "Null") {
           let start = new Date(calendar.start.dateTime);
-          var month = start.getUTCMonth() + 1; //months from 1-12
-          var day = start.getUTCDate();
-          var year = start.getUTCFullYear();
-          let startStr = month+'/'+day+'/'+year
-          end = new Date(calendar.end.dateTime);
-          month = end.getUTCMonth() + 1; //months from 1-12
-          day = end.getUTCDate();
-          year = end.getUTCFullYear();
-          let endStr = month+'/'+day+'/'+year
+          if (start != "Invalid Date") {
+            var month = start.getUTCMonth() + 1; //months from 1-12
+            var day = start.getUTCDate();
+            var year = start.getUTCFullYear();
+            var hour = start.getUTCHours();
+            var minutes = start.getUTCMinutes();
+            let startStr = month+'/'+day+'/'+year
+            let startTime = formatAMPM(start);
+            if (start != "Invalid Date" && start.getUTCFullYear() != "1900") {
+              document.getElementById("start").value = startStr;
+              document.getElementById("startTime").value = startTime;
+            }
+          }
+          
+          let end = new Date(calendar.end.dateTime);
+          if (end != "Invalid Date") {
+            var emonth = end.getUTCMonth() + 1; //months from 1-12
+            var eday = end.getUTCDate();
+            var eyear = end.getUTCFullYear();
+            let endStr = emonth+'/'+eday+'/'+eyear
+            let endTime = formatAMPM(end);
+            if (end != "Invalid Date" && end.getUTCFullYear() != "1900") {
+              document.getElementById("end").value = endStr;
+              document.getElementById("endTime").value = endTime;
+            }
+          }
           
           if (calendar.summary) {
             document.getElementById("title").value = calendar.summary;
@@ -161,10 +197,6 @@
           }
           if (calendar.location) {
             document.getElementById("destination").value = calendar.location;
-          }
-          if (start.getUTCFullYear() != "1900") {
-            document.getElementById("start").value = startStr;
-            document.getElementById("end").value = endStr;
           }
         }
         for (var i = 0; i < room.purchases.length; i++) {
