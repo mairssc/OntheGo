@@ -71,6 +71,46 @@ router.get('/description', async (req, res) => {
     }
 })
 
+router.post('/updatetitle', async (req, res) => {
+    try {
+        const room = await Room.findOne({token: req.query.token});
+        room.calendar.summary = req.body.title
+        await room.save();
+        res.json(room);
+    } catch (err) {
+        res.send(err.message);
+    }
+})
+
+router.get('/title', async (req, res) => {
+    try {
+        const room = await Room.findOne({token: req.query.token});
+        res.json({title: room.calendar.summary});
+    } catch (err) {
+        res.send(err.message);
+    }
+})
+
+router.post('/updatedestination', async (req, res) => {
+    try {
+        const room = await Room.findOne({token: req.query.token});
+        room.calendar.location = req.body.destination
+        await room.save();
+        res.json(room);
+    } catch (err) {
+        res.send(err.message);
+    }
+})
+
+router.get('/destination', async (req, res) => {
+    try {
+        const room = await Room.findOne({token: req.query.token});
+        res.json({destination: room.calendar.location});
+    } catch (err) {
+        res.send(err.message);
+    }
+})
+
 
 
 module.exports = router;

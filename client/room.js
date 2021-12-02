@@ -142,10 +142,54 @@ document.getElementById("mapbutton").addEventListener("click", async () => {
   const destination = document.getElementById("destination").value
   const start = document.getElementById("start").value
   const end = document.getElementById("end").value
+
   if (title) {
-    fetch()
+    const params = {}
+      document.location.search.substr(1).split('&').forEach(pair => {
+      [key, value] = pair.split('=');
+      params[key] = value;
+      })
+      fetch("/room/updatetitle?token=" + params.token, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({title: title})
+      })
+
   }
+
+  if (destination) {
+    const params = {}
+      document.location.search.substr(1).split('&').forEach(pair => {
+      [key, value] = pair.split('=');
+      params[key] = value;
+      })
+      fetch("/room/updatedestination?token=" + params.token, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({destination: destination})
+      })
+  }
+
+
   if (description) {
-    fetch()
+    const params = {}
+      document.location.search.substr(1).split('&').forEach(pair => {
+      [key, value] = pair.split('=');
+      params[key] = value;
+      })
+
+    fetch("/room/description?token=" + params.token, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({description: description})
+    })
   }
+
+
 })
