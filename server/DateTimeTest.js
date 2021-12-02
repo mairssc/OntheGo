@@ -30,10 +30,12 @@
 
 var d = new Date(2022, 0, 14, 12);
 var d2 = new Date(2022, 0, 14, 14);
-var d3 = new Date("32904892942dsaaa")
+var d3 = new Date("11/12/21")
 console.log(d3 == "Invalid Date");
+console.log(d3.toISOString())
 var date = d.toISOString();
 var date2 = d2.toISOString();
+
 
 console.log(date);
 console.log(date2);

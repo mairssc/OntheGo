@@ -111,6 +111,17 @@ router.get('/destination', async (req, res) => {
     }
 })
 
+router.post('/time', async (req, res) => {
+    try {
+        const room = await Room.findOne({token: req.query.token});
+        room.calendar.start.dateTime = req.body.start;
+        room.calendar.end.dateTime = req.body.end;
+        await room.save();
+        res.json(room);
+    } catch (err) {
+        res.send(err.message);
+    }
+})
 
 
 module.exports = router;

@@ -147,24 +147,24 @@
           var day = start.getUTCDate();
           var year = start.getUTCFullYear();
           let startStr = month+'/'+day+'/'+year
-          end = new Date(calendar.start.dateTime);
+          end = new Date(calendar.end.dateTime);
           month = end.getUTCMonth() + 1; //months from 1-12
           day = end.getUTCDate();
           year = end.getUTCFullYear();
           let endStr = month+'/'+day+'/'+year
           
           if (calendar.summary) {
-            title = document.getElementById("title").value = calendar.summary;
+            document.getElementById("title").value = calendar.summary;
           }
           if (room.description) {
-            desc = document.getElementById("description").value = room.description;
+            document.getElementById("description").value = room.description;
           }
           if (calendar.location) {
-            dest = document.getElementById("destination").value = calendar.location;
+            document.getElementById("destination").value = calendar.location;
           }
           if (start.getUTCFullYear() != "1900") {
-            startDate = document.getElementById("start").value;
-            endDate = document.getElementById("end").value = endStr;
+            document.getElementById("start").value = startStr;
+            document.getElementById("end").value = endStr;
           }
         }
         for (var i = 0; i < room.purchases.length; i++) {

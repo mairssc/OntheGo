@@ -230,6 +230,7 @@ document.getElementById("savebutton").addEventListener("click", async () => {
       params[key] = value;
       })
 
+
     fetch("/room/description?token=" + params.token, {
         method: 'POST',
         headers: {
@@ -239,5 +240,30 @@ document.getElementById("savebutton").addEventListener("click", async () => {
     })
   }
 
+  startTime = new Date(start);
+  endTime = new Date(end);
+  if (startTime != "Invalid Date" && endTime != "Invalid Date") {
+    if (startTime > endTime) {
+      console.log('prob')
+      return;
+    }
+    let s = startTime.toISOString();
+    let e = endTime.toISOString();
+    const params = {}
+      document.location.search.substr(1).split('&').forEach(pair => {
+      [key, value] = pair.split('=');
+      params[key] = value;
+      })
+      fetch("/room/time?token=" + params.token, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        start: s,
+        end: e
+      })
+    })
+  }
 
 })
