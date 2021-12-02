@@ -38,6 +38,7 @@ function createCalendarEvent(event, auth, res) {
   // console.log(auth)
   console.log('made it to createCalendarEvent')
   const calendar = google.calendar({version: 'v3', auth: auth});
+  console.log(event)
   calendar.events.insert({    
     auth: auth,
     calendarId: 'primary',
@@ -49,7 +50,7 @@ function createCalendarEvent(event, auth, res) {
       return;
     }
     console.log(event.data.htmlLink)
-    res.send(event.data.htmlLink);
+    res.send({link: event.data.htmlLink});
   });
 }
 

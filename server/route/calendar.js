@@ -61,9 +61,10 @@ router.post('/add', async (req, res) => {
 
 //give id for calendar and token json from /getToken
 //takes in uri
-router.get('/get/:id', async (req, res) => {
+router.post('/get', async (req, res) => {
     try {
-        let curCalendar = await calendar.findById(req.params.id);
+        let c = await Room.findOne({token: req.query.roomToken});
+        let curCalendar = c.calendar
         let uri = req.query.uri;
         
         
@@ -72,9 +73,8 @@ router.get('/get/:id', async (req, res) => {
         //code shou
         let curoAuth2Client = new google.auth.OAuth2(
             clientId, clientSecret, uri);
-        let token = req.body;
+        let token = req.body.token;
         curoAuth2Client.setCredentials(token);
-
 
         curCalendar = {
             summary: curCalendar.summary,
@@ -108,6 +108,7 @@ router.get('/getToken', async (req, res) => {
         let uri = req.query.uri;
         let curoAuth2Client = new google.auth.OAuth2(
             clientId, clientSecret, uri);
+        console.log(curoAuth2Client)
         curoAuth2Client.getToken(code, (err, token) => {
             if (err) return console.error('Error retrieving access token', err);
             res.send(token);

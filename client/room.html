@@ -129,8 +129,10 @@
           if (calendar.location) {
             dest = document.getElementById("destination").value = calendar.location;
           }
-          startDate = document.getElementById("start").value = startStr;
-          endDate = document.getElementById("end").value = endStr;
+          if (start.getUTCFullYear() != "1900") {
+            startDate = document.getElementById("start").value;
+            endDate = document.getElementById("end").value = endStr;
+          }
         }
         for (var i = 0; i < room.purchases.length; i++) {
           curPurchase = room.purchases[i]
@@ -146,6 +148,10 @@
 
     <script>
       async function startCalender() {
+        if ("code" in params) {
+          alert("Calendar has already been added!")
+          return;
+        }
           let authUrl = await fetch('/calendar/getAuthUrl?uri=' + encodeURIComponent(window.location.href), {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},
@@ -153,21 +159,60 @@
           window.location.replace(authUrl.url);
       }
     </script>
-    
-    <script>
-      const params = {}
-      document.location.search.substr(1).split('&').forEach(pair => {
-      [key, value] = pair.split('=');
-      params[key] = value;
-      })
-      async function showCalendarLink() {
-        let data = await fetch('/calendar/getToken?uri=' + encodeURIComponent(window.location.href) + '&token=' +
-        params.code, {
-          method: 'GET',
-          headers: {'Content-Type': 'application/json'},
-        }).then(res => res.json())
 
+    <script>
+      function removeParams(params) {
+            var url = window.location.href.split('?')[0]+'?';
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+         
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] != 'code' && sParameterName[0] != 'scope') {
+                    url = url + sParameterName[0] + '=' + sParameterName[1] + '&'
+                }
+            }
+            console.log(url.substring(0,url.length-1));
+            return url.substring(0,url.length-1);
+    }
+
+
+      async function showCalendarLink() {
+        let url = removeParams()
+        if ("code" in params) {
+          const promise = new Promise((resolve) => {
+            fetch('/calendar/getToken?uri=' + encodeURIComponent(url) + '&code=' +
+            params.code, {
+              method: 'GET',
+              headers: {'Content-Type': 'application/json'}
+            }).then(res => resolve(res.json()))
+          })
+          promise.then((token) => {
+            console.log(token)
+            fetch('/calendar/get?'+ encodeURIComponent(url) + '&roomToken=' + params.token, {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                token: token
+              })
+            }).then(res => res.json())
+            .then(data => {
+              alert("Event has been added to your calendar, it can be found at " + data.link);
+            })
+          }).catch((err) => console.log(err))
+            // console.log('code is there')
+            
+            // console.log(token);
+
+
+            // console.log(link)
+        } else {
+          console.log('no code')
+        }
       }
+      showCalendarLink();
     </script>
   </body>
 </html>

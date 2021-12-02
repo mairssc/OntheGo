@@ -9,11 +9,11 @@ async function randomUrl() {
         calendar: {
         summary: "Null",
         start: {
-          dateTime: "2022-01-14T20:00:00.000Z",
+          dateTime: "1900-01-14T20:00:00.000Z",
           timeZone: "America/Los_Angeles"
         },
         end: {
-          dateTime: "2022-01-14T22:00:00.000Z",
+          dateTime: "1900-01-14T22:00:00.000Z",
           timeZone: "America/Los_Angeles"
         }
       }
