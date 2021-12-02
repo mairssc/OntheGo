@@ -23,7 +23,6 @@ async function randomUrl() {
         method: "POST",
         body: data
     })
-    console.log(room)
     url += room.token
     return url;
 }
