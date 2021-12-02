@@ -9,7 +9,10 @@ const roomSchema = new Schema({
         type: String,
         required: false
     },
-
+    description: {
+        type: String,
+        required: false
+    },
     calendar: {
         summary: {
             type: String,

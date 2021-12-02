@@ -9,26 +9,26 @@
   </head>
   <body style="background-color: #DAECF6;">  
     <ul class="flex-container wrap">  
-        <input class="startbutton" type="text" placeholder="Title" id="title" name="name" required
+        <input class="startbutton" type="text" placeholder="Title" id="title"
             minlength="2" maxlength="20" size="46"> 
         </ul>
         &nbsp;&nbsp;&nbsp;
         <ul class="flex-container wrap">  
-        <input class="descriptionbutton" type="text" placeholder="Description" id="desc" name="name" required
+        <input class="descriptionbutton" type="text" placeholder="Description" id="description"
             minlength="2" maxlength="20" size="46"> 
         </ul>
         &nbsp;&nbsp;&nbsp;
         <ul class="flex-container wrap">  
-        <input class="startbutton" type="text" placeholder="Destination" id="dest" name="name" required
+        <input class="startbutton" type="text" placeholder="Destination" id="destination" 
             minlength="2" maxlength="20" size="46"> 
         </ul>
         &nbsp;&nbsp;&nbsp;
         <ul class="flex-container wrap">  
-        <input class="datebutton" type="text" placeholder="Start Date: MM/DD/YY" id="startDate" name="name" required
-            minlength="2" maxlength="20" size="70"> 
+        <input class="datebutton" type="text" placeholder="Start Date: MM/DD/YY" id="start"
+            minlength="2" maxlength="20" size="46"> 
         &nbsp;&nbsp;&nbsp;
-        <input class="datebutton" type="text" placeholder="End Date: MM/DD/YY" id="endDate" name="name" required
-            minlength="2" maxlength="20" size="70"> 
+        <input class="datebutton" type="text" placeholder="End Date: MM/DD/YY" id="end" 
+            minlength="2" maxlength="20" size="46"> 
         </ul>
     <div id="myDIV" class="header">
       <h2>Our Expenditures</h2>
@@ -124,13 +124,13 @@
             title = document.getElementById("title").value = calendar.summary;
           }
           if (room.description) {
-            desc = document.getElementById("desc").value = room.description;
+            desc = document.getElementById("description").value = room.description;
           }
           if (calendar.location) {
-            dest = document.getElementById("dest").value = calendar.location;
+            dest = document.getElementById("destination").value = calendar.location;
           }
-          startDate = document.getElementById("startDate").value = startStr;
-          endDate = document.getElementById("endDate").value = endStr;
+          startDate = document.getElementById("start").value = startStr;
+          endDate = document.getElementById("end").value = endStr;
         }
         for (var i = 0; i < room.purchases.length; i++) {
           curPurchase = room.purchases[i]

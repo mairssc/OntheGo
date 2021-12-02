@@ -137,3 +137,17 @@ function postURL() {
         console.log(data); // JSON data parsed by `data.json()` call
     })
 }
+
+document.getElementById("mapbutton").addEventListener("click", async () => {
+  const title = document.getElementById("title").value
+  const description= document.getElementById("description").value
+  const destination = document.getElementById("destination").value
+  const start = document.getElementById("start").value
+  const end = document.getElementById("end").value
+  if (title) {
+    fetch()
+  }
+  if (description) {
+    fetch()
+  }
+})
