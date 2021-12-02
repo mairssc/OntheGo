@@ -17,6 +17,7 @@ const oAuth2Client = new google.auth.OAuth2(
   clientId, clientSecret, redirectUris[1]);
 
 const calendar = require('../models/calendar.js');
+const Room = require('../models/room.js')
 
 router.get('/', (req, res) => {
     res.send('Welcome to the api!')
@@ -35,29 +36,27 @@ router.get('/getAll', async (req, res) => {
 //look at schemacalendar for required syntax
 router.post('/add', async (req, res) => {
     try {
-        let curCalendar = await calendar.findOne({
-            summary: req.body.summary,
-            start: req.body.start,
-            end: req.body.end
-        });
-        if (curCalendar) {
-            return res.status(400).json({
-                message: "Calendar Event Already Exists"
-            });
-        }
-        curCalendar = new calendar({
-            summary: req.body.summary,
-            location: req.body.summary,
-            start: req.body.start,
-            end: req.body.end,
-            recurrence: req.body.recurrence,
-            attendees: req.body.attendees,
-            reminders: req.body.reminders
+    	const name =  req.query.name
+    	const token = req.query.token
+        const room = await Room.findOne({token: token});
+        const calendar = req.body.calendar;
+        const newCalendar = new calendar({
+            summary: calendar.summary,
+            location: calendar.summary,
+            start: calendar.start,
+            end: calendar.end,
+            recurrence: calendar.recurrence,
+            attendees: calendar.attendees,
+            reminders: calendar.reminders
         })
-        await curCalendar.save();
-        res.json(curCalendar);
-    } catch(err) {
-        res.send(err.message);
+        console.log(newCalendar)
+        room.purchases.push(newCalendar)
+
+        await room.save();
+
+        await res.json({ purchases: room.purchases});
+    } catch (e) {
+        res.send({ message: e.message});
     }
 })
 
