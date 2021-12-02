@@ -5,13 +5,33 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="name.css" />
+    <link rel="stylesheet" href="./name.css" />
   </head>
   <body style="background-color: #DAECF6;">
     <div class="heading">What is your name?!</div>
     
-        <input class="namebutton" type="text" id="name" name="name" required
+        <input class="namebutton" type="text" id="name" required
         minlength="2" maxlength="20" size="46" placeholder="Name Here">    
-        <a class="startbutton" href="room.html">Start</a>
+        <a class="startbutton" id="startbutton" href="#">Start</a>
+        <script type='text/javascript'> 
+          document.getElementById("startbutton").addEventListener('click', function() {
+            name = document.getElementById("name").value
+            const params = {}
+                document.location.search.substr(1).split('&').forEach(pair => {
+                [key, value] = pair.split('=');
+                params[key] = value;
+            })
+            console.log(name)
+            url = window.location + "&name=" + name
+            document.getElementById("startbutton").href=url;
+            fetch("./user/login", {
+              method: 'POST',
+              body: JSON.stringify({
+                name: params.name,
+                token: params.token
+              })
+            })
+          })
+        </script>
   </body>
 </html>

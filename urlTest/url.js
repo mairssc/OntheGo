@@ -79,5 +79,5 @@ function addUser(user) {
 }
 
 function addCalendarInfo(calendar) {
-    
+    postData('http://localhost:8080/calendar/')
 }

@@ -6,9 +6,14 @@ const calendar = require('../models/calendar.js');
 const room = require('../models/room.js');
 
 router.get('/', (req, res) => {
-    let code = req.query.code;
     //whichever file we use for room data
-    res.sendFile(path.join(__dirname, '../../index.html'));
+    console.log(__dirname);
+    if (req.query.name){
+        //room
+        res.sendFile(path.join(__dirname, '../../client/room.html'));
+        return
+    } 
+    res.sendFile(path.join(__dirname, '../../client/name.html'));
 })
 
 module.exports = router;
