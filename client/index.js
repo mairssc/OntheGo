@@ -6,26 +6,24 @@ function getRandomInt(max) {
 async function randomUrl() {
     let url = "http://localhost:8080/roomDisplay?token=";
     data = {
-        "calendar": {
-        "summary": "Test 123",
-        "start": {
-          "dateTime": "2022-01-14T20:00:00.000Z",
-          "timeZone": "America/Los_Angeles"
+        calendar: {
+        summary: "Test 123",
+        start: {
+          dateTime: "2022-01-14T20:00:00.000Z",
+          timeZone: "America/Los_Angeles"
         },
-        "end": {
-          "dateTime": "2022-01-14T22:00:00.000Z",
-          "timeZone": "America/Los_Angeles"
+        end: {
+          dateTime: "2022-01-14T22:00:00.000Z",
+          timeZone: "America/Los_Angeles"
         }
       }
     }
-    console.log(data.calendar.start.dateTime)
     let room = await fetch('/room/add', {
         method: "POST",
-        body: data
-    })
-    console.log(room)
-    url += room.token
-    return url;
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).then(response => response.json())
+    return url + room.token
 }
 
 async function postURL() {
