@@ -200,6 +200,7 @@ function postURL() {
 }
 
 document.getElementById("savebutton").addEventListener("click", async () => {
+  console.log("made it to save")
   const title = document.getElementById("title").value
   const description= document.getElementById("description").value
   const destination = document.getElementById("destination").value
@@ -270,12 +271,11 @@ document.getElementById("savebutton").addEventListener("click", async () => {
     dt.setMinutes(parseInt(s[2],10));
   }
 
-
   startTime = new Date(start);
   setHours(startTime, sT)
   endTime = new Date(end);
   setHours(endTime, eT)
-  console.log(startTime)
+  
   if (startTime != "Invalid Date" && endTime != "Invalid Date") {
     if (startTime > endTime) {
       console.log('prob')
@@ -285,6 +285,11 @@ document.getElementById("savebutton").addEventListener("click", async () => {
     }
     let s = startTime.toISOString();
     let e = endTime.toISOString();
+    let test = new Date(e);
+    console.log(endTime)
+    console.log(test)
+    console.log(s);
+    console.log(e);
     const params = {}
       document.location.search.substr(1).split('&').forEach(pair => {
       [key, value] = pair.split('=');

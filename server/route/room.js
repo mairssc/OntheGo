@@ -114,8 +114,11 @@ router.get('/destination', async (req, res) => {
 router.post('/time', async (req, res) => {
     try {
         const room = await Room.findOne({token: req.query.token});
+        console.log(req.body.start);
+        console.log(req.body.end);
         room.calendar.start.dateTime = req.body.start;
         room.calendar.end.dateTime = req.body.end;
+        console.log(room.calendar.end.dateTime)
         await room.save();
         res.json(room);
     } catch (err) {

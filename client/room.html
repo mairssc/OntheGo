@@ -176,14 +176,12 @@
         if (calendar.summary != "Null") {
           let start = new Date(calendar.start.dateTime);
           if (start != "Invalid Date") {
-            var month = start.getUTCMonth() + 1; //months from 1-12
-            var day = start.getUTCDate();
-            var year = start.getUTCFullYear();
-            var hour = start.getUTCHours();
-            var minutes = start.getUTCMinutes();
+            var month = start.getMonth() + 1; //months from 1-12
+            var day = start.getDate();
+            var year = start.getFullYear();
             let startStr = month+'/'+day+'/'+year
             let startTime = formatAMPM(start);
-            if (start != "Invalid Date" && start.getUTCFullYear() != "1900") {
+            if (start != "Invalid Date" && start.getFullYear() != "1900") {
               document.getElementById("start").value = startStr;
               document.getElementById("startTime").value = startTime;
             }
@@ -191,12 +189,12 @@
           
           let end = new Date(calendar.end.dateTime);
           if (end != "Invalid Date") {
-            var emonth = end.getUTCMonth() + 1; //months from 1-12
-            var eday = end.getUTCDate();
-            var eyear = end.getUTCFullYear();
+            var emonth = end.getMonth() + 1; //months from 1-12
+            var eday = end.getDate();
+            var eyear = end.getFullYear();
             let endStr = emonth+'/'+eday+'/'+eyear
             let endTime = formatAMPM(end);
-            if (end != "Invalid Date" && end.getUTCFullYear() != "1900") {
+            if (end != "Invalid Date" && end.getFullYear() != "1900") {
               document.getElementById("end").value = endStr;
               document.getElementById("endTime").value = endTime;
             }
