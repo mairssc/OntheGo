@@ -260,9 +260,13 @@ document.getElementById("savebutton").addEventListener("click", async () => {
   function setHours(dt, h) {
     var s = /(\d+):(\d+)(.+)/.exec(h);
     console.log(s)
-    dt.setHours(s[3] === " PM" ? 
+    if (s[3] == " AM" && s[1] == "12") {
+      dt.setHours(0);
+    } else {
+      dt.setHours(s[3] === " PM" ? 
       12 + parseInt(s[1], 10) : 
       parseInt(s[1], 10));
+    }
     dt.setMinutes(parseInt(s[2],10));
   }
 
