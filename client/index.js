@@ -29,9 +29,5 @@ async function randomUrl() {
 
 async function postURL() {
     url = await randomUrl(); 
-    link = document.getElementById("newurl"); 
-    link.href = url; 
-    link.innerText = url; 
-    startButton = document.getElementById("startbutton");
-    startButton.remove(); 
+    window.location.href = url;
 }
